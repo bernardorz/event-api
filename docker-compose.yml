@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  app: 
+    image: node:16.14.0
+    restart: unless-stopped
+    container_name: eventapi
+    working_dir: /usr/src/app
+    networks:
+      - eventapi
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./:/usr/src/app
+      - ./.volumes/logs:/root/.npm/_logs
+    command: bash -c "npm install @nestjs/cli && npm run start:dev"
+
+networks:
+  eventapi:
+    driver: bridge
