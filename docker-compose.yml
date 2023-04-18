@@ -1,5 +1,17 @@
 version: '3.1'
 services:
+
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - eventapi
+    environment:
+      POSTGRES_USER: ${EVENT_DB_USER}
+      POSTGRES_PASSWORD: ${EVENT_DB_PASSWORD}
+      POSTGRES_DB: ${EVENT_DB_DATABASE}
+    ports:
+      - ${EVENT_DB_PORT}:${EVENT_DB_PORT}
   app: 
     image: node:16.14.0
     restart: unless-stopped
@@ -13,6 +25,8 @@ services:
       - ./:/usr/src/app
       - ./.volumes/logs:/root/.npm/_logs
     command: bash -c "npm install @nestjs/cli && npm run start:dev"
+    depends_on:
+    - db
 
 networks:
   eventapi:
