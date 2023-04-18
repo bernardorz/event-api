@@ -9,13 +9,13 @@ import { AccountDataTransferObject } from '../dto/add-acount-dto';
 import { AccountModel } from 'src/domain/models/account';
 import { DeepPartial } from 'typeorm';
 
-@ApiTags('User')
-@Controller('api/users')
+@ApiTags('Account')
+@Controller('api/account')
 export class AccoutController {
   constructor(private readonly addAcount: AddAcountImplemantation) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new user' })
+  @ApiOperation({ summary: 'Create a new account' })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'user successfully created',
