@@ -43,7 +43,7 @@ export class AddAcountImplemantation implements AddAcount {
     });
 
     return new AccountDataTransferObject({
-      email: account.name,
+      email: account.email,
       id: account.id,
       name: account.name,
     });
