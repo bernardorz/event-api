@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { randomBytes } from 'crypto';
 import { DataSource } from 'typeorm';
-import { AppDataSource } from '../../../../ormconfig';
+import { AppDataSource } from '../../../ormconfig';
 const databaseName = `test_${randomBytes(8).toString('hex')}`;
 let connection: DataSource;
 
