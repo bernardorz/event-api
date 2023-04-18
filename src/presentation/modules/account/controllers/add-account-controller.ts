@@ -1,9 +1,8 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AddAcountModel } from 'src/domain/usecases/account/create-account';
 import { BadRequest, Conflict } from '../../../http/errors/index';
-import { Account } from 'src/infrastructure/db/entities/account.entity';
 import { AddAcountImplemantation } from 'src/data/usecases/add-acount';
 import { AccountDataTransferObject } from '../dto/add-acount-dto';
 import { AccountModel } from 'src/domain/models/account';
