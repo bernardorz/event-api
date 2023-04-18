@@ -32,7 +32,7 @@ const closeDatabaseIntegrationConnections = async () => {
   }
 };
 
-describe('Integrations tests', () => {
+describe('Db tests', () => {
   let app;
   jest.setTimeout(30000);
 
