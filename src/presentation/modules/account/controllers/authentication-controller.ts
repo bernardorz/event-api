@@ -1,18 +1,10 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AuthModel } from 'src/domain/usecases/account/authentication';
 import { auth } from 'src/domain/models/authentication';
 import { BadRequest } from '../../../http/errors/index';
 import { AccountDataTransferObject } from '../dto/add-acount-dto';
-import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { AuthenticationImplementation } from 'src/data/usecases/authentication';
 
 @ApiTags('Account')
