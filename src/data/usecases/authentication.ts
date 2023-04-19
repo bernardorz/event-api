@@ -33,6 +33,7 @@ export class AuthenticationImplementation implements Authentication {
       where: {
         email: email,
       },
+      relations: ['roles'],
     });
 
     if (!accountAlreadyCreated) {
@@ -50,15 +51,17 @@ export class AuthenticationImplementation implements Authentication {
         HttpStatus.FORBIDDEN,
       );
     }
+    const roles = accountAlreadyCreated.roles.map((role) => role.initials);
 
     const payload = {
       username: accountAlreadyCreated.name,
       sub: accountAlreadyCreated.id,
+      roles: roles,
     };
 
     const acess_token = await this.jwtService.signAsync(payload, {
       secret: TOKEN_SECRET,
-      expiresIn: TOKEN_EXPIRATION_IN_MILLISECONDS,
+      expiresIn: `${TOKEN_EXPIRATION_IN_MILLISECONDS / 1000}s`,
     });
 
     return {

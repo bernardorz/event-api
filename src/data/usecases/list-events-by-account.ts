@@ -28,7 +28,7 @@ export class ListEventByAccountImplementation implements ListEventByAccount {
     account_id,
     ...restEventData
   }: ListEventByAccountData): Promise<ListEventDataReturns> {
-    const ofsset = Math.ceil(Number(limit) * Number(page));
+    const ofsset = Math.ceil(Number(limit) * (Number(page) - 1)) / limit;
 
     const account = await this.AccountRepository.findOne({
       where: {

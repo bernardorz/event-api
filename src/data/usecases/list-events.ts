@@ -26,7 +26,7 @@ export class ListEventImplementation implements ListEvent {
     page,
     ...restEventData
   }: ListEventData): Promise<ListEventDataReturns> {
-    const ofsset = Math.ceil(Number(limit) * Number(page));
+    const ofsset = Math.ceil(Number(limit) * (Number(page) - 1)) / limit;
 
     const queryBuilder = this.EventRepository.createQueryBuilder('event');
 
@@ -62,7 +62,6 @@ export class ListEventImplementation implements ListEvent {
     const [events, count] = await queryBuilder.getManyAndCount();
 
     const mapEvents = new AccountDataTranformatedObject().map(events);
-
     return { events: mapEvents, count };
   }
 }

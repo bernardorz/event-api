@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsString, MinLength } from 'class-validator';
 import { AccountModel } from 'src/domain/models/account';
 
 export class AccountDataTransferObject {
@@ -6,10 +7,15 @@ export class AccountDataTransferObject {
   id: number;
 
   @ApiProperty({ example: 'Bernardo' })
+  @IsString()
   name: string;
 
-  @ApiProperty({ example: '13/05/2004' })
-  createdAt: Date;
+  @IsString()
+  email: string;
+
+  @IsString()
+  @MinLength(8)
+  password: string;
 
   constructor(partial: Partial<AccountModel>) {
     Object.assign(this, partial);

@@ -14,15 +14,16 @@ import {
   TOKEN_SECRET,
   TOKEN_EXPIRATION_IN_MILLISECONDS,
 } from 'src/config/environments/authentication';
+import { Role } from 'src/infrastructure/db/entities/role.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forFeature([Account]),
+    TypeOrmModule.forFeature([Account, Role]),
     JwtModule.register({
       global: true,
       secret: TOKEN_SECRET,
       signOptions: {
-        expiresIn: '15s',
+        expiresIn: `${TOKEN_EXPIRATION_IN_MILLISECONDS / 1000}s`,
       },
     }),
   ],

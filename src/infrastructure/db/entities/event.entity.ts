@@ -25,7 +25,7 @@ export class EventEntity implements EventModel {
   startAt: Date;
 
   @ApiProperty({ example: '2023-04-18T23:10:07.887Z' })
-  @Column('date', { name: 'end_at' })
+  @Column('varchar', { name: 'end_at' })
   endAt: Date;
 
   @ApiProperty({ example: '13/05/2004' })

@@ -11,8 +11,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-
-import { AddEventData } from 'src/domain/usecases/event/create-event';
 import { BadRequest, Conflict } from '../../../http/errors/index';
 
 import { EventModel } from 'src/domain/models/event';
@@ -23,6 +21,8 @@ import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { ListEventDataReturns } from 'src/domain/usecases/event/list-event';
 import { ListEventByAccountImplementation } from 'src/data/usecases/list-events-by-account';
 import { FindByIdQueryParams } from '../dto/list-event-dto';
+import { Authorize } from 'src/presentation/guard/session';
+import { EventDataTransferObject } from '../dto/add-event-dto';
 
 @ApiTags('Account')
 @Controller('api/event')
@@ -34,6 +34,7 @@ export class EventController {
   ) {}
 
   @Post()
+  @Authorize(['MANAGER'])
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'Create a new event' })
   @ApiResponse({
@@ -53,7 +54,7 @@ export class EventController {
   })
   async add(
     @Request() request,
-    @Body() body: AddEventData,
+    @Body() body: EventDataTransferObject,
   ): Promise<DeepPartial<EventModel>> {
     const { sub } = request['user'];
     const user = await this.addEvent.add({ ...body, account_id: sub });
@@ -61,6 +62,7 @@ export class EventController {
   }
 
   @Get()
+  @Authorize(['MANAGER', 'USER'])
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'List events' })
   @ApiResponse({
@@ -94,6 +96,7 @@ export class EventController {
   }
 
   @Get('/responsable/:id')
+  @Authorize(['MANAGER', 'USER'])
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'List events' })
   @ApiResponse({

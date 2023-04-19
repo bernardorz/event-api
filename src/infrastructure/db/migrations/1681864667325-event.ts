@@ -35,7 +35,7 @@ export class Event1681864667325 implements MigrationInterface {
           new TableColumn({
             name: 'account_id',
             type: 'bigint',
-            isNullable: false,
+            isNullable: true,
           }),
         ],
       }),
@@ -44,7 +44,7 @@ export class Event1681864667325 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'event',
       new TableForeignKey({
-        name: 'event_account_id',
+        name: 'event_account_fk',
         columnNames: ['account_id'],
         referencedTableName: 'account',
         referencedColumnNames: ['id'],
@@ -55,7 +55,7 @@ export class Event1681864667325 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('event', 'event_account_id');
+    await queryRunner.dropForeignKey('event', 'event_account_fk');
     await queryRunner.dropTable('event');
   }
 }

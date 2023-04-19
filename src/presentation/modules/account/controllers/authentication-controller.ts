@@ -6,6 +6,7 @@ import { auth } from 'src/domain/models/authentication';
 import { BadRequest } from '../../../http/errors/index';
 import { AccountDataTransferObject } from '../dto/add-acount-dto';
 import { AuthenticationImplementation } from 'src/data/usecases/authentication';
+import { AuthDataTransferObject } from '../dto/auth-dto';
 
 @ApiTags('Account')
 @Controller('api/auth')
@@ -24,7 +25,7 @@ export class AuthenticationController {
     description: 'invalid payload body',
     type: BadRequest,
   })
-  async add(@Body() body: AuthModel): Promise<auth> {
+  async add(@Body() body: AuthDataTransferObject): Promise<auth> {
     const auth = await this.authentication.auth(body);
     return auth;
   }

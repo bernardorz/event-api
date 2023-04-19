@@ -5,6 +5,7 @@ export interface AddAcountModel {
   name: string;
   email: string;
   password: string;
+  permission: string;
 }
 
 export interface AddAcount {

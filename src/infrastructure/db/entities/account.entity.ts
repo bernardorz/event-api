@@ -1,8 +1,15 @@
 import { Id } from '../helpers/id';
-import { Column, CreateDateColumn, Entity } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinTable,
+  ManyToMany,
+} from 'typeorm';
 import { AccountModel } from 'src/domain/models/account';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { Role } from './role.entity';
 
 @Entity('account')
 export class Account implements AccountModel {
@@ -24,6 +31,18 @@ export class Account implements AccountModel {
   @ApiProperty({ example: '13/05/2004' })
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @ManyToMany(() => Role)
+  @JoinTable({
+    name: 'account_roles',
+    joinColumn: {
+      name: 'account_id',
+    },
+    inverseJoinColumn: {
+      name: 'role_id',
+    },
+  })
+  roles: Role[];
 
   constructor(partial: Partial<Account>) {
     Object.assign(this, partial);
