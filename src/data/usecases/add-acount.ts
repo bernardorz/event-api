@@ -49,7 +49,6 @@ export class AddAcountImplemantation implements AddAcount {
       }
 
       this.company = company;
-      console.log({ company: this.company });
     }
 
     const accountAlreadyCreated = await this.repository.findOne({
@@ -69,14 +68,6 @@ export class AddAcountImplemantation implements AddAcount {
       .where('role.initials = :permission', { permission })
       .select(['role.id', 'role.initials'])
       .getMany();
-
-    console.log({
-      name,
-      email,
-      password: await hash(password, 8),
-      roles: roles,
-      company: this.company,
-    });
 
     const account = await this.repository.save({
       name,
