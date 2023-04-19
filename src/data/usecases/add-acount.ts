@@ -22,7 +22,6 @@ export class AddAcountImplemantation implements AddAcount {
     email,
     password,
   }: AddAcountModel): Promise<DeepPartial<AddAcountModel>> {
-    console.log(this.repository);
     const accountAlreadyCreated = await this.repository.findOne({
       where: {
         email: email,

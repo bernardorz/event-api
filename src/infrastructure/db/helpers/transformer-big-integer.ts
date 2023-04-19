@@ -1,4 +1,4 @@
-import { isNullOrUndefined } from 'src/config/helper/null-or-undefined';
+import { isNullOrUndefined } from '../../../config/helper/null-or-undefined';
 import { ValueTransformer } from 'typeorm';
 
 export class IntegerTransformer implements ValueTransformer {

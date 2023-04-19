@@ -13,7 +13,10 @@ import {
   Bcryptjs,
   BcryptjsImplementation,
 } from 'src/infrastructure/bcrypt/compare';
-import { TOKEN_SECRET } from 'src/config/environments/authentication';
+import {
+  TOKEN_SECRET,
+  TOKEN_EXPIRATION_IN_MILLISECONDS,
+} from 'src/config/environments/authentication';
 
 @Injectable()
 export class AuthenticationImplementation implements Authentication {
@@ -26,7 +29,6 @@ export class AuthenticationImplementation implements Authentication {
   ) {}
 
   async auth({ email, password }: AuthModel): Promise<auth> {
-    console.log(this.repository);
     const accountAlreadyCreated = await this.repository.findOne({
       where: {
         email: email,
@@ -54,9 +56,9 @@ export class AuthenticationImplementation implements Authentication {
       sub: accountAlreadyCreated.id,
     };
 
-    const acess_token = await this.jwtService.sign(payload, {
+    const acess_token = await this.jwtService.signAsync(payload, {
       secret: TOKEN_SECRET,
-      expiresIn: 15,
+      expiresIn: TOKEN_EXPIRATION_IN_MILLISECONDS,
     });
 
     return {

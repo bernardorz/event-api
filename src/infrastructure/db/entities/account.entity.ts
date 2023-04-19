@@ -1,4 +1,4 @@
-import { Id } from 'src/infrastructure/db/helpers/id';
+import { Id } from '../helpers/id';
 import { Column, CreateDateColumn, Entity } from 'typeorm';
 import { AccountModel } from 'src/domain/models/account';
 import { ApiProperty } from '@nestjs/swagger';
