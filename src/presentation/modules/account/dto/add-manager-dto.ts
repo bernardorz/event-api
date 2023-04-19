@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
+  IsNumber,
   IsString,
   isStrongPassword,
   MinLength,
@@ -21,6 +22,10 @@ export class ManagerAccountDataTransferObject implements AddAcountModel {
   @ApiProperty({ example: 'Example@email' })
   @IsEmail()
   email: string;
+
+  @ApiProperty({ example: 'Example@email' })
+  @IsNumber()
+  company_id?: number;
 
   permission: string;
 

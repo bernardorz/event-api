@@ -15,10 +15,11 @@ import {
   TOKEN_EXPIRATION_IN_MILLISECONDS,
 } from 'src/config/environments/authentication';
 import { Role } from 'src/infrastructure/db/entities/role.entity';
+import { Company } from 'src/infrastructure/db/entities/company.entity';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forFeature([Account, Role]),
+    TypeOrmModule.forFeature([Account, Role, Company]),
     JwtModule.register({
       global: true,
       secret: TOKEN_SECRET,

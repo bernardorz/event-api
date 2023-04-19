@@ -3,13 +3,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 import { AccountModel } from 'src/domain/models/account';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import { Role } from './role.entity';
+import { Company } from './company.entity';
 
 @Entity('account')
 export class Account implements AccountModel {
@@ -43,6 +46,12 @@ export class Account implements AccountModel {
     },
   })
   roles: Role[];
+
+  @ManyToOne(() => Company)
+  @JoinColumn({
+    name: 'company_id',
+  })
+  company: Company;
 
   constructor(partial: Partial<Account>) {
     Object.assign(this, partial);

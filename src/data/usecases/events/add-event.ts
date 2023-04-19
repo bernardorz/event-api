@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddEvent, AddEventData } from 'src/domain/usecases/event/create-event';
@@ -24,7 +30,7 @@ export class AddEventImplementation implements AddEvent {
     });
 
     if (!company) {
-      throw new NotFound();
+      throw new NotFoundException('Company not found');
     }
 
     const event = await this.EventRepository.findOne({

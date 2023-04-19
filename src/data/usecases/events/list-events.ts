@@ -51,7 +51,7 @@ export class ListEventImplementation implements ListEvent {
       });
     }
 
-    queryBuilder.leftJoinAndSelect('event.responsable', 'account');
+    queryBuilder.leftJoinAndSelect('event.company', 'company');
 
     queryBuilder.skip(ofsset).take(limit);
 

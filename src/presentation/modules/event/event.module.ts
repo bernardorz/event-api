@@ -6,7 +6,7 @@ import { AddEventImplementation } from 'src/data/usecases/events/add-event';
 import { EventController } from './controllers/event-controller';
 import { EventEntity } from 'src/infrastructure/db/entities/event.entity';
 import { ListEventImplementation } from 'src/data/usecases/events/list-events';
-import { ListEventByAccountImplementation } from 'src/data/usecases/events/list-events-by-account';
+import { ListEventByCompanyImplementation } from 'src/data/usecases/events/list-events-by-company';
 import { Company } from 'src/infrastructure/db/entities/company.entity';
 
 @Module({
@@ -19,7 +19,7 @@ import { Company } from 'src/infrastructure/db/entities/company.entity';
     Repository,
     AddEventImplementation,
     ListEventImplementation,
-    ListEventByAccountImplementation,
+    ListEventByCompanyImplementation,
   ],
 })
 export class EventModule {}

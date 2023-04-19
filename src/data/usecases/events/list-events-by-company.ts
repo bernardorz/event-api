@@ -1,19 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { EventEntity } from 'src/infrastructure/db/entities/event.entity';
 
-import { Account } from 'src/infrastructure/db/entities/account.entity';
 import {
-  ListEventByAccount,
-  ListEventByAccountData,
+  ListEventByCompanyt,
+  ListEventByCompanyData,
   ListEventDataReturns,
 } from 'src/domain/usecases/event/list-event-by-account';
-import { NotFound } from 'src/presentation/http/errors';
+
 import { Company } from 'src/infrastructure/db/entities/company.entity';
 
 @Injectable()
-export class ListEventByAccountImplementation implements ListEventByAccount {
+export class ListEventByCompanyImplementation implements ListEventByCompanyt {
   constructor(
     @InjectRepository(EventEntity)
     private readonly EventRepository: Repository<EventEntity>,
@@ -27,7 +26,7 @@ export class ListEventByAccountImplementation implements ListEventByAccount {
     page,
     company_id,
     ...restEventData
-  }: ListEventByAccountData): Promise<ListEventDataReturns> {
+  }: ListEventByCompanyData): Promise<ListEventDataReturns> {
     const ofsset = Math.ceil(Number(limit) * (Number(page) - 1)) / limit;
 
     const company = await this.CompanyRepository.findOne({
@@ -37,7 +36,7 @@ export class ListEventByAccountImplementation implements ListEventByAccount {
     });
 
     if (!company) {
-      throw new NotFound();
+      throw new NotFoundException('Company not found');
     }
 
     const queryBuilder = this.EventRepository.createQueryBuilder('event');

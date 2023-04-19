@@ -2,7 +2,7 @@ import { DeepPartial } from 'typeorm';
 import { EventModel } from '../../models/event';
 import { ListEventData } from './list-event';
 
-export interface ListEventByAccountData extends ListEventData {
+export interface ListEventByCompanyData extends ListEventData {
   company_id: number;
 }
 
@@ -11,6 +11,6 @@ export interface ListEventDataReturns {
   count: number;
 }
 
-export interface ListEventByAccount {
-  list(event: ListEventByAccountData): Promise<ListEventDataReturns>;
+export interface ListEventByCompanyt {
+  list(event: ListEventByCompanyData): Promise<ListEventDataReturns>;
 }

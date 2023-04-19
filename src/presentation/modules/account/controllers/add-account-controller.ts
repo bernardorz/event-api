@@ -36,7 +36,7 @@ export class AccoutController {
     type: Conflict,
   })
   async addManager(
-    @Body() body: AddAcountModel,
+    @Body() body: ManagerAccountDataTransferObject,
   ): Promise<DeepPartial<AccountModel>> {
     const user = await this.addAcount.add({ ...body, permission: 'MANAGER' });
     return user;
@@ -60,7 +60,7 @@ export class AccoutController {
     type: Conflict,
   })
   async addAccount(
-    @Body() body: ManagerAccountDataTransferObject,
+    @Body() body: AddAcountModel,
   ): Promise<DeepPartial<AccountModel>> {
     const user = await this.addAcount.add({ ...body, permission: 'USER' });
     return user;

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFound } from '../../presentation/http/errors/';
+import { Conflict, NotFound } from '../../presentation/http/errors/';
 import { Repository } from 'typeorm';
 import {
   AuthModel,
@@ -37,7 +37,10 @@ export class AuthenticationImplementation implements Authentication {
     });
 
     if (!accountAlreadyCreated) {
-      throw new HttpException(new NotFound(), HttpStatus.CONFLICT);
+      throw new HttpException(
+        new Conflict('Email already used'),
+        HttpStatus.CONFLICT,
+      );
     }
 
     const matchPassword = this.Bcrypt.compare(

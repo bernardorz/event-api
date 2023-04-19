@@ -19,7 +19,7 @@ import { AddEventImplementation } from 'src/data/usecases/events/add-event';
 import { ListEventImplementation } from 'src/data/usecases/events/list-events';
 import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { ListEventDataReturns } from 'src/domain/usecases/event/list-event';
-import { ListEventByAccountImplementation } from 'src/data/usecases/events/list-events-by-account';
+import { ListEventByCompanyImplementation } from 'src/data/usecases/events/list-events-by-company';
 import { FindByIdQueryParams } from '../dto/list-event-dto';
 import { Authorize } from 'src/presentation/guard/session';
 import { EventDataTransferObject } from '../dto/add-event-dto';
@@ -30,7 +30,7 @@ export class EventController {
   constructor(
     private readonly addEvent: AddEventImplementation,
     private readonly ListEvents: ListEventImplementation,
-    private readonly ListEventByAccount: ListEventByAccountImplementation,
+    private readonly ListEventByCompany: ListEventByCompanyImplementation,
   ) {}
 
   @Post()
@@ -115,7 +115,7 @@ export class EventController {
   ): Promise<ListEventDataReturns> {
     const { limit, page, name, endAt, startAt } = query;
 
-    const events = await this.ListEventByAccount.list({
+    const events = await this.ListEventByCompany.list({
       limit,
       page: page === 0 ? 1 : page,
       name,

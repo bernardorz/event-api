@@ -6,6 +6,7 @@ export interface AddAcountModel {
   email: string;
   password: string;
   permission: string;
+  company_id?: number;
 }
 
 export interface AddAcount {
