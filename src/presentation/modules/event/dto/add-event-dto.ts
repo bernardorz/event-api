@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsDateString } from 'class-validator';
+import { IsOptional, IsString, IsDateString, IsNumber } from 'class-validator';
 import { AddEventData } from 'src/domain/usecases/event/create-event';
 
 export class EventDataTransferObject implements AddEventData {
@@ -13,5 +13,6 @@ export class EventDataTransferObject implements AddEventData {
   @IsDateString()
   endAt: Date;
 
-  account_id: number;
+  @IsNumber()
+  company_id: number;
 }

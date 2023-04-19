@@ -9,16 +9,12 @@ import {
   ListEventData,
   ListEventDataReturns,
 } from 'src/domain/usecases/event/list-event';
-import { AccountDataTranformatedObject } from 'src/presentation/modules/event/dto/list-event-dto';
 
 @Injectable()
 export class ListEventImplementation implements ListEvent {
   constructor(
     @InjectRepository(EventEntity)
     private readonly EventRepository: Repository<EventEntity>,
-
-    @InjectRepository(Account)
-    private readonly AccountRepository: Repository<Account>,
   ) {}
 
   async list({
@@ -61,7 +57,6 @@ export class ListEventImplementation implements ListEvent {
 
     const [events, count] = await queryBuilder.getManyAndCount();
 
-    const mapEvents = new AccountDataTranformatedObject().map(events);
-    return { events: mapEvents, count };
+    return { events: events, count };
   }
 }

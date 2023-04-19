@@ -5,7 +5,7 @@ export interface AddEventData {
   name: string;
   startAt: Date;
   endAt: Date;
-  account_id: number;
+  company_id: number;
 }
 
 export interface AddEvent {

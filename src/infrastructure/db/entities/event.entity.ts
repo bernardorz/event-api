@@ -9,7 +9,7 @@ import {
 import { EventModel } from 'src/domain/models/event';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Account } from './account.entity';
+import { Company } from './company.entity';
 
 @Entity('event')
 export class EventEntity implements EventModel {
@@ -32,7 +32,7 @@ export class EventEntity implements EventModel {
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @ManyToOne(() => Account)
-  @JoinColumn({ name: 'account_id' })
-  responsable: Account;
+  @ManyToOne(() => Company)
+  @JoinColumn({ name: 'company_id' })
+  company: Company;
 }

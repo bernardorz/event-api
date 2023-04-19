@@ -15,11 +15,11 @@ import { BadRequest, Conflict } from '../../../http/errors/index';
 
 import { EventModel } from 'src/domain/models/event';
 import { DeepPartial } from 'typeorm';
-import { AddEventImplementation } from 'src/data/usecases/add-event';
-import { ListEventImplementation } from 'src/data/usecases/list-events';
+import { AddEventImplementation } from 'src/data/usecases/events/add-event';
+import { ListEventImplementation } from 'src/data/usecases/events/list-events';
 import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { ListEventDataReturns } from 'src/domain/usecases/event/list-event';
-import { ListEventByAccountImplementation } from 'src/data/usecases/list-events-by-account';
+import { ListEventByAccountImplementation } from 'src/data/usecases/events/list-events-by-account';
 import { FindByIdQueryParams } from '../dto/list-event-dto';
 import { Authorize } from 'src/presentation/guard/session';
 import { EventDataTransferObject } from '../dto/add-event-dto';
@@ -53,11 +53,9 @@ export class EventController {
     type: Conflict,
   })
   async add(
-    @Request() request,
     @Body() body: EventDataTransferObject,
   ): Promise<DeepPartial<EventModel>> {
-    const { sub } = request['user'];
-    const user = await this.addEvent.add({ ...body, account_id: sub });
+    const user = await this.addEvent.add({ ...body });
     return user;
   }
 
@@ -92,7 +90,7 @@ export class EventController {
     return events;
   }
 
-  @Get('/responsable/:id')
+  @Get('/company/:id')
   @Authorize(['MANAGER', 'USER'])
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'List events' })
@@ -113,7 +111,7 @@ export class EventController {
   })
   async listByAccount(
     @Query(ValidationPipe) query: FindByIdQueryParams,
-    @Param('id') accout_id: string,
+    @Param('id') company_id: string,
   ): Promise<ListEventDataReturns> {
     const { limit, page, name, endAt, startAt } = query;
 
@@ -123,7 +121,7 @@ export class EventController {
       name,
       startAt,
       endAt,
-      account_id: Number(accout_id),
+      company_id: Number(company_id),
     });
 
     return events;

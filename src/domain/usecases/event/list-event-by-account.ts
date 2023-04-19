@@ -3,7 +3,7 @@ import { EventModel } from '../../models/event';
 import { ListEventData } from './list-event';
 
 export interface ListEventByAccountData extends ListEventData {
-  account_id: number;
+  company_id: number;
 }
 
 export interface ListEventDataReturns {

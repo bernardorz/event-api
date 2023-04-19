@@ -3,9 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddEvent, AddEventData } from 'src/domain/usecases/event/create-event';
 import { EventEntity } from 'src/infrastructure/db/entities/event.entity';
-import { AccountDataTransferObject } from 'src/presentation/modules/account/dto/add-acount-dto';
-import { Conflict } from 'src/presentation/http/errors';
-import { Account } from 'src/infrastructure/db/entities/account.entity';
+import { Conflict, NotFound } from 'src/presentation/http/errors';
+import { Company } from 'src/infrastructure/db/entities/company.entity';
 
 @Injectable()
 export class AddEventImplementation implements AddEvent {
@@ -13,22 +12,20 @@ export class AddEventImplementation implements AddEvent {
     @InjectRepository(EventEntity)
     private readonly EventRepository: Repository<EventEntity>,
 
-    @InjectRepository(Account)
-    private readonly AccountRepository: Repository<Account>,
+    @InjectRepository(Company)
+    private readonly CompanyRepository: Repository<Company>,
   ) {}
 
   async add(eventData: AddEventData): Promise<any> {
-    const account = await this.AccountRepository.findOne({
+    const company = await this.CompanyRepository.findOne({
       where: {
-        id: eventData.account_id,
+        id: eventData.company_id,
       },
     });
 
-    const accountData = new AccountDataTransferObject({
-      email: account.email,
-      id: account.id,
-      createdAt: account.createdAt,
-    });
+    if (!company) {
+      throw new NotFound();
+    }
 
     const event = await this.EventRepository.findOne({
       where: {
@@ -49,9 +46,9 @@ export class AddEventImplementation implements AddEvent {
       name,
       startAt,
       endAt,
-      responsable: account,
+      company,
     });
 
-    return { ...createEvent, responsable: accountData };
+    return createEvent;
   }
 }

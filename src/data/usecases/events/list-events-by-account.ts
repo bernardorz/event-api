@@ -9,8 +9,8 @@ import {
   ListEventByAccountData,
   ListEventDataReturns,
 } from 'src/domain/usecases/event/list-event-by-account';
-import { AccountDataTranformatedObject } from 'src/presentation/modules/event/dto/list-event-dto';
 import { NotFound } from 'src/presentation/http/errors';
+import { Company } from 'src/infrastructure/db/entities/company.entity';
 
 @Injectable()
 export class ListEventByAccountImplementation implements ListEventByAccount {
@@ -18,33 +18,33 @@ export class ListEventByAccountImplementation implements ListEventByAccount {
     @InjectRepository(EventEntity)
     private readonly EventRepository: Repository<EventEntity>,
 
-    @InjectRepository(Account)
-    private readonly AccountRepository: Repository<Account>,
+    @InjectRepository(Company)
+    private readonly CompanyRepository: Repository<Company>,
   ) {}
 
   async list({
     limit,
     page,
-    account_id,
+    company_id,
     ...restEventData
   }: ListEventByAccountData): Promise<ListEventDataReturns> {
     const ofsset = Math.ceil(Number(limit) * (Number(page) - 1)) / limit;
 
-    const account = await this.AccountRepository.findOne({
+    const company = await this.CompanyRepository.findOne({
       where: {
-        id: account_id,
+        id: company_id,
       },
     });
 
-    if (!account) {
+    if (!company) {
       throw new NotFound();
     }
 
     const queryBuilder = this.EventRepository.createQueryBuilder('event');
 
     queryBuilder
-      .leftJoin('event.responsable', 'account')
-      .where('account.id = :id', { id: account_id })
+      .leftJoin('event.company', 'company')
+      .where('company.id = :id', { id: company_id })
       .orderBy('event.id');
 
     if (restEventData.startAt && restEventData.endAt) {
