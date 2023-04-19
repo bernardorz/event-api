@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Conflict } from '../../presentation/http/errors/conflict';
+import { Conflict } from '../../../presentation/http/errors/conflict';
 import { Repository } from 'typeorm';
 import { Company } from 'src/infrastructure/db/entities/company.entity';
 

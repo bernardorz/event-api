@@ -83,13 +83,10 @@ export class EventController {
   async list(
     @Query(ValidationPipe) query: FindByIdQueryParams,
   ): Promise<ListEventDataReturns> {
-    const { limit, page, name, endAt, startAt } = query;
+    const { page, ...queryParams } = query;
     const events = await this.ListEvents.list({
-      limit,
       page: page === 0 ? 1 : page,
-      name,
-      startAt,
-      endAt,
+      ...queryParams,
     });
 
     return events;
