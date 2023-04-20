@@ -10,7 +10,7 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequest, Conflict } from '../../../http/errors/index';
 
 import { EventModel } from 'src/domain/models/event';
@@ -104,6 +104,7 @@ export class EventController {
     description: 'invalid payload query params',
     type: Conflict,
   })
+  @ApiQuery({ name: 'id', description: 'Company id', required: true })
   async listByAccount(
     @Query(ValidationPipe) query: FindByIdQueryParams,
     @Param('id') company_id: string,

@@ -9,7 +9,7 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequest, Conflict } from '../../../http/errors/index';
 
 import { TicketPurchaseModel } from 'src/domain/models/ticket-purchase';
@@ -43,7 +43,7 @@ export class TicketController {
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'ticket successfully created',
-    type: Object,
+    type: TicketTransferObject,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
@@ -91,22 +91,23 @@ export class TicketController {
   @Get('event/:id')
   @Authorize(['USER'])
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'buy new ticket' })
+  @ApiOperation({ summary: 'List tickets by event id' })
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: 'ticket successfully purchase',
+    description: 'ticket successfully list',
     type: Object,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'invalid payload body',
+    description: 'invalid payload query/route params',
     type: BadRequest,
   })
   @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: 'invalidy quantity',
-    type: Conflict,
+    status: HttpStatus.NOT_FOUND,
+    description: 'Event not found',
+    type: BadRequest,
   })
+  @ApiQuery({ name: 'id', description: 'Event id', required: true })
   async list(
     @Query(ValidationPipe) queryParams: TicketListTransferObject,
     @Param('id') event_id: number,

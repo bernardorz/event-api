@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsString, MinLength } from 'class-validator';
 import { AccountModel } from 'src/domain/models/account';
-import { Company } from 'src/infrastructure/db/entities/company.entity';
 
 export class AccountDataTransferObject {
   @ApiProperty({ example: 1 })
@@ -11,9 +10,11 @@ export class AccountDataTransferObject {
   @IsString()
   name: string;
 
+  @ApiProperty({ example: 'Example@email' })
   @IsString()
   email: string;
 
+  @ApiProperty({ example: 'ExampePassword' })
   @IsString()
   @MinLength(8)
   password: string;
