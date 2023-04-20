@@ -4,5 +4,5 @@ export interface TicketModel {
   price: number;
   description: string;
   availableQuantity: number;
-  event_id: object;
+  event: object;
 }

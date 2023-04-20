@@ -12,6 +12,7 @@ import { EventModule } from './presentation/modules/event/event.module';
 import { CompanyModule } from './presentation/modules/company/company.module';
 import { Role } from './infrastructure/db/entities/role.entity';
 import { Company } from './infrastructure/db/entities/company.entity';
+import { TicketModule } from './presentation/modules/ticket/event.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,6 +21,7 @@ import { Company } from './infrastructure/db/entities/company.entity';
     AccountModule,
     EventModule,
     CompanyModule,
+    TicketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
