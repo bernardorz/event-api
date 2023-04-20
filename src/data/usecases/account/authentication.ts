@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Conflict, NotFound } from '../../presentation/http/errors/';
+import { Conflict, NotFound } from '../../../presentation/http/errors/';
 import { Repository } from 'typeorm';
 import {
   AuthModel,

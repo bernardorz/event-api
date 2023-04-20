@@ -20,7 +20,7 @@ import { ListCompaniesImplemantation } from 'src/data/usecases/company/list-comp
 import { ListCompaniesataReturns } from 'src/domain/usecases/company/list-company';
 import { CompanyDataTransferObject } from '../dto/add-company-dto';
 
-@ApiTags('Account')
+@ApiTags('Company')
 @Controller('api/company')
 export class CompanyController {
   constructor(
@@ -57,7 +57,7 @@ export class CompanyController {
   @Get('')
   @Authorize(['MANAGER', 'USER'])
   @UseGuards(AuthGuard)
-  @ApiOperation({ summary: 'Create a new company' })
+  @ApiOperation({ summary: 'List companies' })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'list companies',
@@ -65,13 +65,8 @@ export class CompanyController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'invalid payload body',
+    description: 'invalid payload query params',
     type: BadRequest,
-  })
-  @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: 'Company already exist',
-    type: Conflict,
   })
   async list(
     @Query(ValidationPipe) query: ListCompanyDataTransferObject,

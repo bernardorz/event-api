@@ -24,7 +24,7 @@ import { FindByIdQueryParams } from '../dto/list-event-dto';
 import { Authorize } from 'src/presentation/guard/session';
 import { EventDataTransferObject } from '../dto/add-event-dto';
 
-@ApiTags('Account')
+@ApiTags('Event')
 @Controller('api/event')
 export class EventController {
   constructor(
@@ -70,13 +70,8 @@ export class EventController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'invalid payload body',
+    description: 'invalid payload query params',
     type: BadRequest,
-  })
-  @ApiResponse({
-    status: HttpStatus.CONFLICT,
-    description: 'Event already created',
-    type: Conflict,
   })
   async list(
     @Query(ValidationPipe) query: FindByIdQueryParams,
@@ -106,7 +101,7 @@ export class EventController {
   })
   @ApiResponse({
     status: HttpStatus.CONFLICT,
-    description: 'Event already created',
+    description: 'invalid payload query params',
     type: Conflict,
   })
   async listByAccount(

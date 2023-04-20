@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'bcryptjs';
-import { Conflict } from '../../presentation/http/errors/conflict';
+import { Conflict } from '../../../presentation/http/errors/conflict';
 import { DeepPartial, Repository } from 'typeorm';
 import {
   AddAcountModel,
