@@ -78,7 +78,7 @@ Para rodar a <span style="color:purple"> API </span>, siga estas etapas:
 * Crie um arquivo . env na raiz do projeto
 * Preencha o .env de acordo com o .env.example
 
-* Rode o seguinte comando e sua aplicação ira ser criado em um container docker e disponiblizada na porta que você configurou no .env
+* Rode o seguinte comando e sua aplicação ira ser criada em um container docker e disponiblizada na porta que você configurou no .env
 ```
 npm run compose:up
 ``` 
