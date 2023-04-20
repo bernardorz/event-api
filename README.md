@@ -29,11 +29,12 @@
 
 
 ## Endpoints
- * Documentação dos endpoints com swagger disponivel na seguinte rota <http://localhost:{SERVER_PORT}/docs>
+ * Documentação dos endpoints com swagger disponivel na seguinte rota <http://localhost:{SERVER_PORT}/{SWAGGER_URL}>
 ## 💻 Pré-requisitos
 
 * Docker
 * NodeJs
+* Npm
 
 
 ## 💻 Técnologias utilizadas
