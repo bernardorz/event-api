@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -43,6 +44,11 @@ export class TicketPurchaseImplementation implements Ticket {
       throw new NotFoundException('Ticket not found');
     }
 
+    console.log({ ticket });
+    if (!ticket.availableQuantity) {
+      throw new BadRequestException('Tickets sold out');
+    }
+
     const validQuantity = ticket.availableQuantity - ticketData.quantity;
 
     if (!validQuantity) {
@@ -76,6 +82,12 @@ export class TicketPurchaseImplementation implements Ticket {
       quantity: ticketData.quantity,
       total: total,
     });
+
+    await this.TicketRepository.createQueryBuilder('ticket')
+      .update(TicketEntity)
+      .set({ availableQuantity: validQuantity })
+      .where('ticket.id = :id', { id: ticket.id })
+      .execute();
 
     return createTicketPurchase;
   }

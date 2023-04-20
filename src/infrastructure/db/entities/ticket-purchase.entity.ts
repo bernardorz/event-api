@@ -5,18 +5,27 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { EventEntity } from './event.entity';
 import { Account } from './account.entity';
+import { IntegerTransformer } from '../helpers/transformer-big-integer';
 
 @Entity('ticket_purchase')
 export class TicketPurchaseEntity implements TicketPurchaseModel {
   @Id()
   id: number;
 
-  @ApiProperty({ example: 'R$ 300,00' })
-  @Column('decimal', { name: 'total', precision: 10, scale: 2 })
+  @ApiProperty({ example: 129.9 })
+  @Column('decimal', {
+    name: 'total',
+    precision: 10,
+    scale: 2,
+    transformer: IntegerTransformer.getInstance(),
+  })
   total: number;
 
-  @ApiProperty({ example: 'R$ 300,00' })
-  @Column('bigint', { name: 'quantity' })
+  @ApiProperty({ example: 10 })
+  @Column('bigint', {
+    name: 'quantity',
+    transformer: IntegerTransformer.getInstance(),
+  })
   quantity: number;
 
   @ManyToOne(() => EventEntity)

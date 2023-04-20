@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  Req,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -83,8 +84,10 @@ export class TicketController {
   })
   async buy(
     @Body() body: PurchaseTicketTransferObject,
+    @Req() request,
   ): Promise<TicketPurchaseModel> {
-    const ticket = await this.ticketPurchase.buy(body);
+    const { sub } = request.user;
+    const ticket = await this.ticketPurchase.buy({ ...body, account_id: sub });
     return ticket;
   }
 
