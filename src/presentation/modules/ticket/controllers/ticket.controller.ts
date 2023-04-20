@@ -1,4 +1,14 @@
-import { Body, Controller, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BadRequest, Conflict } from '../../../http/errors/index';
 
@@ -13,6 +23,9 @@ import { AddTicketImplementation } from 'src/data/usecases/ticket/add-ticket';
 import { TicketPurchaseImplementation } from 'src/data/usecases/ticket/ticket-purchase';
 import { PurchaseTicketTransferObject } from '../dto/purchase-ticket-dto';
 import { TicketModel } from 'src/domain/models/ticket';
+import { TicketListTransferObject } from '../dto/list-ticket-dto';
+import { TicketListImplementation } from 'src/data/usecases/ticket/list-ticket-by-event';
+import { ListTicketByEventDataReturns } from 'src/domain/usecases/ticket/list-ticket-by-event';
 
 @ApiTags('Ticket')
 @Controller('api/ticket')
@@ -20,6 +33,7 @@ export class TicketController {
   constructor(
     private readonly addTicket: AddTicketImplementation,
     private readonly ticketPurchase: TicketPurchaseImplementation,
+    private readonly ticketList: TicketListImplementation,
   ) {}
 
   @Post()
@@ -49,7 +63,7 @@ export class TicketController {
   }
 
   @Post('purchase')
-  @Authorize(['USER'])
+  @Authorize(['MANAGER', 'USER'])
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'buy new ticket' })
   @ApiResponse({
@@ -71,6 +85,33 @@ export class TicketController {
     @Body() body: PurchaseTicketTransferObject,
   ): Promise<TicketPurchaseModel> {
     const ticket = await this.ticketPurchase.buy(body);
+    return ticket;
+  }
+
+  @Get('event/:id')
+  @Authorize(['USER'])
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'buy new ticket' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'ticket successfully purchase',
+    type: Object,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'invalid payload body',
+    type: BadRequest,
+  })
+  @ApiResponse({
+    status: HttpStatus.CONFLICT,
+    description: 'invalidy quantity',
+    type: Conflict,
+  })
+  async list(
+    @Query(ValidationPipe) queryParams: TicketListTransferObject,
+    @Param('id') event_id: number,
+  ): Promise<ListTicketByEventDataReturns> {
+    const ticket = await this.ticketList.list({ ...queryParams, event_id });
     return ticket;
   }
 }

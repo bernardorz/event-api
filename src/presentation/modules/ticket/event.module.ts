@@ -11,6 +11,7 @@ import {
 import { TicketController } from './controllers/ticket.controller';
 import { TicketPurchaseImplementation } from 'src/data/usecases/ticket/ticket-purchase';
 import { TicketPurchaseEntity } from 'src/infrastructure/db/entities/ticket-purchase.entity';
+import { TicketListImplementation } from 'src/data/usecases/ticket/list-ticket-by-event';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -26,6 +27,7 @@ import { TicketPurchaseEntity } from 'src/infrastructure/db/entities/ticket-purc
     Repository,
     AddTicketImplementation,
     TicketPurchaseImplementation,
+    TicketListImplementation,
   ],
 })
 export class TicketModule {}
