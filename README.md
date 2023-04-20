@@ -83,6 +83,9 @@ cd event-api
 
 * Para testar a aplicação utilize o usuario admin para se authenticar
 
+```js
+//Exposição do usuario intencional, para efetuação dos testes.
+```
 ```json
   "email": "admin@email.com",
   "password": "admin"
@@ -92,11 +95,12 @@ Authenticado com esse usuario, siga o seguinte flow
 
 >Criar empresa> Criar Manager> Criar Evento> Criar Ingresso
 
-! Ponto importante, para criar um usuario comum, não precisa estar autenticado, somente se for criar um manager.
-
+* ! Ponto importante, para criar um usuario comum, não precisa estar autenticado, somente se for criar um manager.
+* ! Apos a criação do manager, você pode criar um usuario comum tambem, tendo ambos criados, você conseguira efetuar o teste em todos os endpoints
+, lembrando que existem essas 3 roles, [ADM, MANAGER,USER], O Manager é o representante da empresa, enquanto o usuário representa o cliente final, não sendo necesario o do mesmo com uma empresa.
 > METHOD POST
-> * api/account/manager 
-> * api/account/
+> * api/account/manager - ROLE ADM
+> * api/account/ - NO ROLE REQUIRED
 
 ## ☕ Como rodar a aplicação
 
