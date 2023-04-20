@@ -85,15 +85,6 @@ Docker
 npm run compose:up
 ``` 
 
-Ou
-
-```
-npm install
-
-npm run migration:run
-
-npm run start:dev
-```
 ## 📝 Licença
 
 Esse projeto está sob licença.
