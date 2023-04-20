@@ -24,7 +24,7 @@ services:
     volumes:
       - ./:/usr/src/app
       - ./.volumes/logs:/root/.npm/_logs
-    command: bash -c "npm install @nestjs/cli && npm run start:dev"
+    command: bash -c "npm run docker:start"
     depends_on:
     - db
 
