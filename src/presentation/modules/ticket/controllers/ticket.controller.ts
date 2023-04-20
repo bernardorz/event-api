@@ -89,7 +89,7 @@ export class TicketController {
   }
 
   @Get('event/:id')
-  @Authorize(['USER'])
+  @Authorize(['MANAGER,USER'])
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: 'List tickets by event id' })
   @ApiResponse({
