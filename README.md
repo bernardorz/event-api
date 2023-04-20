@@ -70,6 +70,34 @@ Navegue ate o diretorio do repositorio:
 cd event-api
 ```
 
+
+
+
+
+## Diagrama de entidade simples para entidendimento 
+<img src="entity-flow.png" alt="image">
+
+
+
+## Consumir & Testar
+
+* Para testar a aplicação utilize o usuario admin para se authenticar
+
+```json
+  "email": "admin@email.com",
+  "password": "admin"
+```
+
+Authenticado com esse usuario, siga o seguinte flow
+
+>Criar empresa> Criar Manager> Criar Evento> Criar Ingresso
+
+! Ponto importante, para criar um usuario comum, não precisa estar autenticado, somente se for criar um manager.
+
+> METHOD POST
+> * api/account/manager 
+> * api/account/
+
 ## ☕ Como rodar a aplicação
 
 Para rodar a <span style="color:purple"> API </span>, siga estas etapas:
@@ -82,6 +110,10 @@ Para rodar a <span style="color:purple"> API </span>, siga estas etapas:
 ```
 npm run compose:up
 ``` 
+
+
+## Observação
+> Caso você esteja utilizando o insomnia para testar, pode importar pelo insomnia a collection disponivel no arquivo Insomnia.json
 
 ## 📝 Licença
 
