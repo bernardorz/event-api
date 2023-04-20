@@ -1,12 +1,4 @@
-import { Transform } from 'class-transformer';
-import {
-  IsOptional,
-  IsString,
-  IsNumber,
-  Min,
-  Max,
-  IsDecimal,
-} from 'class-validator';
+import { IsOptional, IsString, IsNumber } from 'class-validator';
 import { TicketData } from 'src/domain/usecases/ticket/add-ticket';
 
 export class TicketTransferObject implements TicketData {

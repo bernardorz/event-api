@@ -1,7 +1,6 @@
 import {
   HttpException,
   HttpStatus,
-  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -23,7 +22,7 @@ export class AddTicketImplementation implements Ticket {
     private readonly TicketRepository: Repository<TicketEntity>,
   ) {}
 
-  async add(ticketData: TicketData): Promise<any> {
+  async add(ticketData: TicketData): Promise<TicketEntity> {
     const event = await this.EventRepository.findOne({
       where: {
         id: ticketData.event_id,
