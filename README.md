@@ -26,6 +26,7 @@
     - [✓] Criação de ingressos
     - [✓] Compra de ingressos
     - [✓] Listagem de ingressos por evento
+    - [✓] Listagem de compras de ingresso 
 
 
 ## Endpoints
@@ -74,8 +75,8 @@ cd event-api
 
 
 
-## Diagrama de entidade simples para entidendimento 
-<img src="entity-flow.png" alt="image">
+## Diagrama de entidades 
+<img src="diagram.png" alt="image">
 
 
 
