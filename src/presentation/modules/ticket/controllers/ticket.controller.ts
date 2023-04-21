@@ -85,7 +85,7 @@ export class TicketController {
   async buy(
     @Body() body: PurchaseTicketTransferObject,
     @Req() request,
-  ): Promise<TicketPurchaseModel> {
+  ): Promise<DeepPartial<TicketPurchaseModel>> {
     const { sub } = request.user;
     const ticket = await this.ticketPurchase.buy({ ...body, account_id: sub });
     return ticket;

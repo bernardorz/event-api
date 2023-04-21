@@ -1,4 +1,5 @@
 import { TicketPurchaseModel } from 'src/domain/models/ticket-purchase';
+import { DeepPartial } from 'typeorm';
 
 export interface TicketPurchase {
   account_id?: number;
@@ -7,5 +8,5 @@ export interface TicketPurchase {
 }
 
 export interface Ticket {
-  buy(event: TicketPurchase): Promise<TicketPurchaseModel>;
+  buy(event: TicketPurchase): Promise<DeepPartial<TicketPurchaseModel>>;
 }

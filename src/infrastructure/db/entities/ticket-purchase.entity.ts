@@ -6,6 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { EventEntity } from './event.entity';
 import { Account } from './account.entity';
 import { IntegerTransformer } from '../helpers/transformer-big-integer';
+import { TicketEntity } from './ticket.entity';
 
 @Entity('ticket_purchase')
 export class TicketPurchaseEntity implements TicketPurchaseModel {
@@ -31,6 +32,10 @@ export class TicketPurchaseEntity implements TicketPurchaseModel {
   @ManyToOne(() => EventEntity)
   @JoinColumn({ name: 'event_id' })
   event: EventEntity;
+
+  @ManyToOne(() => TicketEntity)
+  @JoinColumn({ name: 'ticket_id' })
+  ticket: TicketEntity;
 
   @ManyToOne(() => Account)
   @JoinColumn({ name: 'account_id' })

@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import {
   Ticket,
   TicketPurchase,
@@ -32,7 +32,9 @@ export class TicketPurchaseImplementation implements Ticket {
     private readonly TicketPurchaseRepository: Repository<TicketPurchaseEntity>,
   ) {}
 
-  async buy(ticketData: TicketPurchase): Promise<TicketPurchaseModel> {
+  async buy(
+    ticketData: TicketPurchase,
+  ): Promise<DeepPartial<TicketPurchaseModel>> {
     const ticket = await this.TicketRepository.findOne({
       where: {
         id: ticketData.ticket_id,
@@ -43,15 +45,13 @@ export class TicketPurchaseImplementation implements Ticket {
     if (!ticket) {
       throw new NotFoundException('Ticket not found');
     }
-
-    console.log({ ticket });
     if (!ticket.availableQuantity) {
       throw new BadRequestException('Tickets sold out');
     }
 
     const validQuantity = ticket.availableQuantity - ticketData.quantity;
 
-    if (!validQuantity) {
+    if (validQuantity <= -1) {
       throw new HttpException(
         new Conflict('Quantity of tickets unavailable'),
         HttpStatus.BAD_REQUEST,
@@ -76,11 +76,15 @@ export class TicketPurchaseImplementation implements Ticket {
 
     const total = ticketData.quantity * ticket.price;
 
-    const createTicketPurchase = await this.TicketPurchaseRepository.save({
+    const {
+      account: accountRelationWithPurchaseTicket,
+      ...createTicketPurchase
+    } = await this.TicketPurchaseRepository.save({
       account,
       event,
       quantity: ticketData.quantity,
       total: total,
+      ticket,
     });
 
     await this.TicketRepository.createQueryBuilder('ticket')
@@ -88,6 +92,8 @@ export class TicketPurchaseImplementation implements Ticket {
       .set({ availableQuantity: validQuantity })
       .where('ticket.id = :id', { id: ticket.id })
       .execute();
+
+    console.log({ createTicketPurchase });
 
     return createTicketPurchase;
   }
