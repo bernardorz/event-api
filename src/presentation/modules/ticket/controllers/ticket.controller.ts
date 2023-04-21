@@ -11,7 +11,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BadRequest, Conflict } from '../../../http/errors/index';
+import { BadRequest, Conflict, NotFound } from '../../../http/errors/index';
 
 import { TicketPurchaseModel } from 'src/domain/models/ticket-purchase';
 import { DeepPartial } from 'typeorm';
@@ -27,6 +27,9 @@ import { TicketModel } from 'src/domain/models/ticket';
 import { TicketListTransferObject } from '../dto/list-ticket-dto';
 import { TicketListImplementation } from 'src/data/usecases/ticket/list-ticket-by-event';
 import { ListTicketByEventDataReturns } from 'src/domain/usecases/ticket/list-ticket-by-event';
+import { ListTicketPurchaseDataReturns } from 'src/domain/usecases/ticket/list-ticket-purchase-by-ticket';
+import { TicketPurchaseListImplementation } from 'src/data/usecases/ticket/list-ticket-purchase-by-ticket';
+import { TicketPurchaseListTransferObject } from '../dto/list-ticket-purchase-dto';
 
 @ApiTags('Ticket')
 @Controller('api/ticket')
@@ -35,6 +38,7 @@ export class TicketController {
     private readonly addTicket: AddTicketImplementation,
     private readonly ticketPurchase: TicketPurchaseImplementation,
     private readonly ticketList: TicketListImplementation,
+    private readonly ticketPurchaseList: TicketPurchaseListImplementation,
   ) {}
 
   @Post()
@@ -89,6 +93,40 @@ export class TicketController {
     const { sub } = request.user;
     const ticket = await this.ticketPurchase.buy({ ...body, account_id: sub });
     return ticket;
+  }
+
+  @Get('purchase/:id')
+  @Authorize(['MANAGER'])
+  @UseGuards(AuthGuard)
+  @ApiOperation({ summary: 'List ticket purchase by event id' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: 'ticket purchase successfully list',
+    type: Object,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'invalid payload query params',
+    type: BadRequest,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Ticket not found',
+    type: NotFound,
+  })
+  async listTicketsPurchase(
+    @Query(ValidationPipe) queryParams: TicketPurchaseListTransferObject,
+    @Req() request,
+    @Param('id') ticket_id: string,
+  ): Promise<ListTicketPurchaseDataReturns> {
+    const { sub } = request.user;
+    const tickets = await this.ticketPurchaseList.list({
+      ...queryParams,
+      account_id: sub,
+      ticket_id: Number(ticket_id),
+    });
+
+    return tickets;
   }
 
   @Get('event/:id')

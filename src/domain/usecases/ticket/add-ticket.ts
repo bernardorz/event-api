@@ -9,5 +9,5 @@ export interface TicketData {
 }
 
 export interface Ticket {
-  add(event: TicketData): Promise<TicketModel>;
+  add(ticket: TicketData): Promise<TicketModel>;
 }

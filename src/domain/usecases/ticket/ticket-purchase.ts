@@ -8,5 +8,5 @@ export interface TicketPurchase {
 }
 
 export interface Ticket {
-  buy(event: TicketPurchase): Promise<DeepPartial<TicketPurchaseModel>>;
+  buy(ticket: TicketPurchase): Promise<DeepPartial<TicketPurchaseModel>>;
 }

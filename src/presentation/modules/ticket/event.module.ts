@@ -12,6 +12,7 @@ import { TicketController } from './controllers/ticket.controller';
 import { TicketPurchaseImplementation } from 'src/data/usecases/ticket/ticket-purchase';
 import { TicketPurchaseEntity } from 'src/infrastructure/db/entities/ticket-purchase.entity';
 import { TicketListImplementation } from 'src/data/usecases/ticket/list-ticket-by-event';
+import { TicketPurchaseListImplementation } from 'src/data/usecases/ticket/list-ticket-purchase-by-ticket';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -28,6 +29,7 @@ import { TicketListImplementation } from 'src/data/usecases/ticket/list-ticket-b
     AddTicketImplementation,
     TicketPurchaseImplementation,
     TicketListImplementation,
+    TicketPurchaseListImplementation,
   ],
 })
 export class TicketModule {}
