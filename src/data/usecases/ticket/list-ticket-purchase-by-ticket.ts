@@ -46,8 +46,6 @@ export class TicketPurchaseListImplementation implements TicketPurchaseList {
       .leftJoinAndSelect('account.company', 'company')
       .getOne();
 
-    console.log({ company });
-
     const { limit, page } = tickePurchasetListData;
 
     const ofsset = Math.ceil(Number(limit) * (Number(page) - 1)) / limit;

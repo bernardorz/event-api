@@ -48,6 +48,7 @@
 * Postgres
 * Bcrypt
 * Jsonwebtoken
+* Swagger
 ## Princípios
 * Single Responsibility Principle (SRP)
 * Liskov Substitution Principle (LSP)
@@ -55,6 +56,22 @@
 * Dependency Inversion Principle (DIP)
 * Keep It Simple, Silly (KISS)
 
+
+## Design Patterns
+* Adapter
+* Decorator
+* Dependency Injection
+* Builder
+* Singleton
+
+
+## Features do Node
+* Documentação de API com Swagger
+* API Rest com Express
+* Log de Erro
+* Segurança (Hashing, Encryption e Encoding)
+* Middlewares
+* Nível de Acesso nas Rotas (Adm, Manager e user)
 
 
 ## 🚀 Instalando o projeto
@@ -88,8 +105,10 @@ cd event-api
 //Exposição do usuario intencional, para efetuação dos testes.
 ```
 ```json
+ {
   "email": "admin@email.com",
   "password": "admin"
+ }
 ```
 
 Authenticado com esse usuario, siga o seguinte flow
