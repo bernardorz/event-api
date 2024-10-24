@@ -20,15 +20,15 @@ import { AuthGuard } from 'src/presentation/guard/auth.guard';
 
 import { Authorize } from 'src/presentation/guard/session';
 import { TicketTransferObject } from '../dto/add-ticket-dto';
-import { AddTicketImplementation } from 'src/data/usecases/ticket/add-ticket';
-import { TicketPurchaseImplementation } from 'src/data/usecases/ticket/ticket-purchase';
+import { AddTicketImplementation } from 'src/modules/ticket/add-ticket';
+import { TicketPurchaseImplementation } from 'src/modules/ticket/ticket-purchase';
 import { PurchaseTicketTransferObject } from '../dto/purchase-ticket-dto';
 import { TicketModel } from 'src/domain/models/ticket';
 import { TicketListTransferObject } from '../dto/list-ticket-dto';
-import { TicketListImplementation } from 'src/data/usecases/ticket/list-ticket-by-event';
+import { TicketListImplementation } from 'src/modules/ticket/list-ticket-by-event';
 import { ListTicketByEventDataReturns } from 'src/domain/usecases/ticket/list-ticket-by-event';
 import { ListTicketPurchaseDataReturns } from 'src/domain/usecases/ticket/list-ticket-purchase-by-ticket';
-import { TicketPurchaseListImplementation } from 'src/data/usecases/ticket/list-ticket-purchase-by-ticket';
+import { TicketPurchaseListImplementation } from 'src/modules/ticket/list-ticket-purchase-by-ticket';
 import { TicketPurchaseListTransferObject } from '../dto/list-ticket-purchase-dto';
 
 @ApiTags('Ticket')

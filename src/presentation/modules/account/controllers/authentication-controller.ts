@@ -4,7 +4,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { auth } from 'src/domain/models/authentication';
 import { BadRequest } from '../../../http/errors/index';
 import { AccountDataTransferObject } from '../dto/add-acount-dto';
-import { AuthenticationImplementation } from 'src/data/usecases/account/authentication';
+import { AuthenticationImplementation } from 'src/modules/account/authentication';
 import { AuthDataTransferObject } from '../dto/auth-dto';
 
 @ApiTags('Authentication')

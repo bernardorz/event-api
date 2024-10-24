@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { Repository } from 'typeorm';
 import { Company } from 'src/infrastructure/db/entities/company.entity';
-import { AddCompanyImplemantation } from 'src/data/usecases/company/add-company';
-import { ListCompaniesImplemantation } from 'src/data/usecases/company/list-company';
+import { AddCompanyImplemantation } from 'src/modules/company/add-company';
+import { ListCompaniesImplemantation } from 'src/modules/company/list-company';
 
 @Module({
   imports: [ConfigModule.forRoot(), TypeOrmModule.forFeature([Company])],

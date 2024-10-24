@@ -12,14 +12,14 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AddAcountModel } from 'src/domain/usecases/account/create-account';
 import { BadRequest, Conflict } from '../../../http/errors/index';
-import { AddAcountImplemantation } from 'src/data/usecases/account/add-acount';
+import { AddAcountImplemantation } from 'src/modules/account/add-acount';
 import { AccountDataTransferObject } from '../dto/add-acount-dto';
 import { AccountModel } from 'src/domain/models/account';
 import { DeepPartial } from 'typeorm';
 import { Authorize } from 'src/presentation/guard/session';
 import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { ManagerAccountDataTransferObject } from '../dto/add-manager-dto';
-import { ListAccountsImplementation } from 'src/data/usecases/account/list-account';
+import { ListAccountsImplementation } from 'src/modules/account/list-account';
 import { ListAccountDataTransferObject } from '../dto/list-account-dto';
 import { ListAccountsReturns } from 'src/domain/usecases/account/list-account';
 

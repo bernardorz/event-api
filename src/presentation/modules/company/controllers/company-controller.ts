@@ -15,8 +15,8 @@ import { ListCompanyDataTransferObject } from '../dto/list-company-dto';
 import { Authorize } from 'src/presentation/guard/session';
 import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { CompanyModel } from 'src/domain/models/company';
-import { AddCompanyImplemantation } from 'src/data/usecases/company/add-company';
-import { ListCompaniesImplemantation } from 'src/data/usecases/company/list-company';
+import { AddCompanyImplemantation } from 'src/modules/company/add-company';
+import { ListCompaniesImplemantation } from 'src/modules/company/list-company';
 import { ListCompaniesataReturns } from 'src/domain/usecases/company/list-company';
 import { CompanyDataTransferObject } from '../dto/add-company-dto';
 

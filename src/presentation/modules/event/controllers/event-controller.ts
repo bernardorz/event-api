@@ -15,11 +15,11 @@ import { BadRequest, Conflict } from '../../../http/errors/index';
 
 import { EventModel } from 'src/domain/models/event';
 import { DeepPartial } from 'typeorm';
-import { AddEventImplementation } from 'src/data/usecases/events/add-event';
-import { ListEventImplementation } from 'src/data/usecases/events/list-events';
+import { AddEventImplementation } from 'src/modules/events/add-event';
+import { ListEventImplementation } from 'src/modules/events/list-events';
 import { AuthGuard } from 'src/presentation/guard/auth.guard';
 import { ListEventDataReturns } from 'src/domain/usecases/event/list-event';
-import { ListEventByCompanyImplementation } from 'src/data/usecases/events/list-events-by-company';
+import { ListEventByCompanyImplementation } from 'src/modules/events/list-events-by-company';
 import { FindByIdQueryParams } from '../dto/list-event-dto';
 import { Authorize } from 'src/presentation/guard/session';
 import { EventDataTransferObject } from '../dto/add-event-dto';
